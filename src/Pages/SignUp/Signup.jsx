@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
  
 
 const Signup = () => {
@@ -19,11 +21,14 @@ const Signup = () => {
           <div className="card-body">
             <form onSubmit={handleLogin} >
               <fieldset className="fieldset">
+                <label className="label">Name</label>
+                <input type="text" name="name" className="input" placeholder="Name" />
                 <label className="label">Email</label>
-                <input type="email" className="input" placeholder="Email" />
+                <input type="email" name="email" className="input" placeholder="Email" />
                 <label className="label">Password</label>
                 <input
                   type="password"
+                   name="password" 
                   className="input"
                   placeholder="Password"
                 />
@@ -34,11 +39,11 @@ const Signup = () => {
                 <input
                   className="btn btn-neutral mt-4"
                   type="submit"
-                  value="Login"
+                  value="SignUp"
                 />
-              </fieldset>
+              </fieldset> 
             </form>
-       
+       <p>Already have and account <Link className="text-amber-700 font-bold" to='/login'>Login</Link></p>
           </div>
         </div>
       </div>
