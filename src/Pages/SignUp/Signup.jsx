@@ -41,7 +41,7 @@ const Signup = () => {
                   type="submit"
                   value="SignUp"
                 />
-              </fieldset> 
+              </fieldset>
             </form>
        <p>Already have and account <Link className="text-amber-700 font-bold" to='/login'>Login</Link></p>
           </div>
