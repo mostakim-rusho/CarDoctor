@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Signup = () => {
+  const {createUser}=useContext(AuthContext)
   const handleSignUp = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -10,6 +13,14 @@ const Signup = () => {
 
     console.log("User Info:", { name, email, password });
     // You can now send this data to your backend or Firebase
+    createUser(email,password)
+    .then(result=>{
+      const user=result.user;
+      console.log(user)
+    })
+    .then(error=>{
+      console.log(error)
+    })
   };
 
   return (
