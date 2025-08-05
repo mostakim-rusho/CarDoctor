@@ -3,7 +3,7 @@ import { Link } from "react-router";
  
 
 const Signup = () => {
-    const handleLogin =event=>{
+    const handleSignUp =event=>{
         event.preventDefault
     }
   return (
@@ -19,7 +19,7 @@ const Signup = () => {
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
           <div className="card-body">
-            <form onSubmit={handleLogin} >
+            <form onSubmit={handleSignUp} >
               <fieldset className="fieldset">
                 <label className="label">Name</label>
                 <input type="text" name="name" className="input" placeholder="Name" />
