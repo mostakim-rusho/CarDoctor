@@ -1,35 +1,51 @@
- 
 import { useLoaderData } from "react-router-dom";
- 
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider"; // আপনার path অনুযায়ী ঠিক করে নিন
 
 const CheckOut = () => {
   const service = useLoaderData();
-  const { title, price,_id,img } = service || {};
- 
-  const handleBookService =event=>{
+  const { title, price, _id, img } = service || {};
+
+  const { user } = useContext(AuthContext); // এখানে থেকে user পাওয়া যাবে
+
+  const handleBookService = (event) => {
     event.preventDefault();
-    const form =event.target;
+    const form = event.target;
     const name = form.name.value;
-    const date =form.date.value;
-    const email=form.email.value;
-    const booking={
-        customerName:name,
-        email,
-        date,
-        img,
-        service:title,
-        service_id:_id,
-        price:price
-    }
- 
-   fetch('http://localhost:5000/bookings', {
-  method:'POST',
-  headers:{ 'content-type':'application/json' },
-  body: JSON.stringify(booking)
-})
+    const date = form.date.value;
+    const email = form.email.value;
 
+    const booking = {
+      customerName: name,
+      email,
+      date,
+      img,
+      service: title,
+      service_id: _id,
+      price: price,
+    };
 
-  }
+    fetch("http://localhost:5000/bookings", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          alert("✅ Booking successful!");
+          form.reset();
+        } else {
+          alert("❌ Something went wrong!");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("⚠️ Server error, please try again later.");
+      });
+  };
 
   return (
     <div className="max-w-lg mx-auto mt-10 p-8 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl border border-gray-100 mb-12">
@@ -76,8 +92,9 @@ const CheckOut = () => {
           <input
             type="email"
             name="email"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
-            placeholder="you@example.com"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-700 cursor-not-allowed"
+            defaultValue={user?.email || ""}
+            readOnly
           />
         </div>
 
